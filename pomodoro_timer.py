@@ -55,11 +55,15 @@ try:
         today_tallies = dates_tallies[today]
         today_tallies = len(today_tallies.replace(' ', ''))
         print('Total pomodoros today: ' + str(today_tallies + 1))
+    else:
+        print('Total pomodoros today: 1')
 
     if yesterday in contents:
         yesterday_tallies = dates_tallies[yesterday]
         yesterday_tallies = len(yesterday_tallies.replace(' ', ''))
         print('Total pomodoros yesterday: ' + str(yesterday_tallies))
+    else:
+        print("Total pomodoros yesterday: 0")
 
     print('Total pomodoros to date: ' + str(total))
     
