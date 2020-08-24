@@ -1,6 +1,9 @@
 # pomodoro_timer.py - My own custom pomodoro timer with tracker log.
 
-import time, datetime, subprocess, sys
+import time
+import datetime
+import subprocess
+import sys
 from datetime import timedelta
 
 # Get input for pomodoro duration, only accepts 25 - 60 mins for each.
@@ -8,7 +11,7 @@ while True:
     time_left = input("Type a number 25 - 60 for your desired pomodoro "
                       "duration:\n"
                       "Or press ENTER to quit. "
-                     )
+                      )
 
     if time_left == '':
         sys.exit(0)
@@ -35,14 +38,14 @@ try:
     # Open log file and append the current date or tally a pomodoro.
     with open('pomodoro_tracker.txt', 'r+') as file_object:
         contents = file_object.read()
-        
+
         if today in contents:
             file_object.write(' ' + time_tally)
         else:
             file_object.write('\n' + today + ': ' + time_tally)
 
         date_contents = contents.split('\n')
-        
+
         # Place the dates into a dictionary as keys and tallies as values
         dates_tallies = {}
         for string in date_contents:
@@ -68,8 +71,8 @@ try:
         today_tallies = len(today_minutes)
         today_minutes = sum(today_minutes)
         print(
-            'Total pomodoros today: ' + str(today_tallies) +
-            ', for a total of ' + str(today_minutes) + ' minutes.'
+            'Total pomodoros today:', today_tallies, ', for a total of',
+            today_minutes, ' minutes.'
         )
     else:
         print('Total pomodoros today: 1, for ' + time_tally + ' minutes.')
@@ -83,19 +86,18 @@ try:
         yesterday_tallies = len(yesterday_minutes)
         yesterday_minutes = sum(yesterday_minutes)
         print(
-            'Total pomodoros yesterday: ' + str(yesterday_tallies) + 
-            ', for a total of ' + str(yesterday_minutes) + ' minutes.'
+            'Total pomodoros yesterday:', yesterday_tallies, ', for a total of',
+            yesterday_minutes, 'minutes.'
         )
     else:
         print("Total pomodoros yesterday: 0")
 
     # All time pomodoro and time count
     print(
-        'Total pomodoros to date: ' + str(len(total_tallies)) + 
-        ' for a total time of ' + str(sum(total_tallies)) + ' minutes or ' +
-        str(round(sum(total_tallies) / 60, 2)) + ' hours.'
+        'Total pomodoros to date:', len(total_tallies), 'for a total time of',
+        sum(total_tallies), 'minutes or', sum(total_tallies) // 60, 'hours.'
     )
-    
+
     # At the end of the countdown, open a text file.
     subprocess.Popen(['open', 'pomodoro_tracker.txt'])
 except KeyboardInterrupt:
